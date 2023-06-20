@@ -1,11 +1,14 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { REQUEST_STATE } from '../utils';
-import { addUserAsync, getUsersAsync, deleteUserAsync } from './thunks';
+import { addUserAsync, getUsersAsync, getUserAsync, deleteUserAsync } from './thunks';
 
 const INITIAL_STATE = {
   list: [],
+  detail: null,
   getUsers: REQUEST_STATE.IDLE,
+  getUser: REQUEST_STATE.IDLE,
   addUser: REQUEST_STATE.IDLE,
+  deleteUser: REQUEST_STATE.IDLE,
   error: null
 };
 
@@ -24,6 +27,18 @@ const usersSlice = createSlice({
         state.list = action.payload;
       })
       .addCase(getUsersAsync.rejected, (state, action) => {
+        state.getUsers = REQUEST_STATE.REJECTED;
+        state.error = action.error;
+      })
+      .addCase(getUserAsync.pending, (state) => {
+        state.getUsers = REQUEST_STATE.PENDING;
+        state.error = null;
+      })
+      .addCase(getUserAsync.fulfilled, (state, action) => {
+        state.getUsers = REQUEST_STATE.FULFILLED;
+        state.detail = action.payload;
+      })
+      .addCase(getUserAsync.rejected, (state, action) => {
         state.getUsers = REQUEST_STATE.REJECTED;
         state.error = action.error;
       })

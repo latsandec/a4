@@ -23,6 +23,20 @@ const addUser = async (user) => {
     return response.json();
   };
 
+  const getUser = async (userId) => {
+    const response = await fetch('http://localhost:3001/users/' + userId, {
+      method: 'GET'
+    });
+  
+    const data = await response.json();
+    if (!response.ok) {
+      const errorMsg = data?.message;
+      throw new Error(errorMsg);
+    }
+    
+    return data;
+  };
+
   const deleteUser = async (userId) => {
     const response = await fetch('http://localhost:3001/users/' + userId, {
       method: 'DELETE'
@@ -40,5 +54,6 @@ const addUser = async (user) => {
   export default {
     addUser,
     getUsers,
+    getUser,
     deleteUser
   };

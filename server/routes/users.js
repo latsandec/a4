@@ -43,7 +43,13 @@ router.get('/:userId', function(req, res, next) {
     res.status(404);
     res.send("Menu does not exist.");
   }
-  return res.send(foundUser);
+  const data = {
+    'id':foundUser.id,
+    'name':foundUser.name,
+    'description':foundUser.description,
+    'price':foundUser.price
+  };
+  return res.send(data);
 });
 
 router.post('/', function(req, res, next) {
