@@ -1,0 +1,161 @@
+
+:root {
+	--first: #fffbd5;
+	--second: #c92142;
+	--third: #f0bfa6;
+	--fourth: #f27c7c;
+	--fifth: #da696c;
+}
+
+#back {
+	background-image: linear-gradient(
+	to right bottom, var(--first), var(--second)
+	);
+	width: 100%;
+	height: 100%;
+	position: fixed;
+	top: 0px;
+	z-index: -1;
+}
+
+#title {
+    min-width: 600px;
+    text-align: center;
+}
+
+.child {
+	padding: 15px;
+	align-items: center;
+	justify-content: center;
+}
+
+.form {
+    display: inline-block;
+	min-width: 35%;
+    max-width: 500px;
+	align-self: center;
+    align-items: center;
+	margin: 0px;
+}
+
+.detail {
+    display: inline-block;
+    width: 450px;
+    min-width: 35%;
+}
+
+.top-container {
+    text-align: center;
+    padding-top: 30px;
+    padding-bottom: 40px;
+    width: 100%;
+	min-width: 600px;
+    align-self: center;
+}
+
+.bottom-container {
+    background-color: white;
+	border-radius: 20px;
+	width: 75%;
+	min-width: 600px;
+	align-self: center;
+	margin: 0 auto;
+	padding-top: 20px;
+	min-height: 300px;
+	display: flex;
+	flex-direction: column;
+  	align-items: center;
+	justify-content: center;
+}
+
+.card {
+	display: flex;
+	flex-direction: column;
+  	align-items: center;
+	justify-content: center;
+}
+
+h1 {
+	font-family: "Franklin Gothic Medium";
+	font-size: 45px;
+    text-align: center;
+	align-self: center;
+	letter-spacing: 2px;
+	color: white;
+}
+
+h2 {
+	font-family: "Franklin Gothic Medium";
+	font-size: 25px;
+	text-align: center;
+	letter-spacing: 2px;
+	color: var(--fifth);
+}
+
+h3 {
+	font-family: "Franklin Gothic Medium";
+	font-size: 20px;
+	text-align: center;
+	letter-spacing: 2px;
+	color: white;
+}
+
+small {
+	font-family: "Franklin Gothic Medium";
+	font-size: 15px;
+	text-align: center;
+	letter-spacing: 2px;
+	color: var(--fifth);
+}
+
+.pic {
+	border-radius: 20px;
+	max-width: 600px;
+	max-height: 400px;
+	align-self: center;
+}
+
+.field {
+	width: 60%;
+	margin: 10px auto;
+	padding: 10px;
+	border-radius: 10px;
+	background-color: white;
+	justify-content: space-between;
+	font-size: 17px;
+	border: 0px;
+	font-family: Calibri;
+}
+
+.text {
+	width: 300px;
+	cursor: text;
+}
+
+.btn {
+	width: 50%;
+	margin: 10px auto;
+	height: 40px;
+	border-radius: 10px;
+	background-image: linear-gradient(
+	to right bottom, var(--third), var(--fourth)
+	);
+	color: #ffedf0;
+	font-size: 17px;
+	border: 0px;
+	cursor: pointer;
+    display:grid;
+}
+
+#price-button {
+	margin-top: 10px;
+	margin-right: 10px;
+	width: 150px;
+	background: white;
+	border: 1.5px solid var(--fourth);
+	color: var(--fourth);
+}
+
+.btn:active {
+	transform: translateY(2px);
+}
