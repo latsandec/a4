@@ -15,3 +15,10 @@ export const addUserAsync = createAsyncThunk(
     return await UserService.addUser(user);
   }
 );
+
+export const deleteUserAsync = createAsyncThunk(
+  actionTypes.DELETE_USER,
+  async (userId) => {
+    return await UserService.deleteUser(userId);
+  }
+);

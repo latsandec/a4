@@ -12,7 +12,7 @@ export default function CardContainer() {
   }, []);
 
   return (
-    <div className='card'>
+    <div className='card-container'>
           {items.map((item) => {
             return (<Card index={item['id']}/>);}   
           )}

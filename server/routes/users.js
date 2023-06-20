@@ -54,4 +54,15 @@ router.post('/', function(req, res, next) {
   return res.send(newUser.id);
 });
 
+router.delete('/:userId', function(req, res, next) {
+  const userId = req.params.userId;
+  const index = users.findIndex(user => user.id == userId);
+  if (index == -1) {
+    res.status(404);
+    res.send("Menu does not exist.");
+  }
+  users.splice(index, 1);
+  return res.send(userId);
+});
+
 module.exports = router;
