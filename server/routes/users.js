@@ -1,74 +1,64 @@
 var express = require('express');
+const mongoose = require('mongoose');
 var router = express.Router();
 
-var nextId = 4;
-var users = [
-  {
-  'id': '1',
-      'name': 'Fried Rice',
-      'description': 'rice, egg, carrot, green pea',
-      'price': '15',
-      'url': 'https://www.allrecipes.com/thmb/-695p6NRUJBW08joTDDq9xrMiyM=/750x0/filters:no_upscale():max_bytes(150000):strip_icc():format(webp)/79543-fried-rice-restaurant-style-DDMFS-4x3-b79a6ea27e0344399257ca1df67ca1cd.jpg'
-  },
-  {
-  'id': '2',
-      'name': 'Miso Soup',
-      'description': 'miso, tofu, green onion',
-      'price': '9',
-      'url': 'https://www.allrecipes.com/thmb/q8mj4aSbHY2rJgky7JYEpWYkpQo=/750x0/filters:no_upscale():max_bytes(150000):strip_icc():format(webp)/13107-miso-soup-Melissa-Goff-1x1-1-2962011c74e340fd8afbfaf43ac4b6f2.jpg'
-     },
-     {
-  'id': '3',
-      'name': 'Bake Potato',
-      'description': 'potato, cheese, butter',
-      'price': '12',
-      'url': 'https://www.allrecipes.com/thmb/LzDye6-jP60bHuDufo6GqwGuBR0=/750x0/filters:no_upscale():max_bytes(150000):strip_icc():format(webp)/85337-microwave-baked-potato-DDMFS-4x3-f10fc0f5cd9b4278b45204068803f61e.jpg'
-     }
- ];
-
-/* GET users listing. */
-router.get('/', function(req, res, next) {
-  const userList = users.map(user => ({
-    'id':user.id,
-    'name':user.name,
-    'url':user.url
-  }));
-  res.send(userList);
+ const menuSchema = new mongoose.Schema({
+  name: String,
+  difficulty: Number,
+  description: String,
+  price: Number,
+  url: String,
 });
 
-router.get('/:userId', function(req, res, next) {
-  const userId = req.params.userId;
-  const foundUser = users.find(user => user.id == userId);
-  if (!foundUser) {
-    res.status(404);
-    res.send("Menu does not exist.");
+// from: https://stackoverflow.com/questions/7034848/mongodb-output-id-instead-of-id
+menuSchema.virtual('id').get(function(){
+  return this._id.toHexString();
+});
+menuSchema.set('toJSON', {
+  virtuals: true,
+  transform: function (doc, ret) {   delete ret._id  }
+});
+
+const Menu = mongoose.model('Menu', menuSchema);
+
+router.get('/', async (req, res, next) => {
+  try {
+    const menuItems = await Menu.find().select('_id name url');
+    res.json(menuItems);
+  } catch (error) {
+    res.status(500).json({ message: error });
   }
-  const data = {
-    'id':foundUser.id,
-    'name':foundUser.name,
-    'description':foundUser.description,
-    'price':foundUser.price
-  };
-  return res.send(data);
 });
 
-router.post('/', function(req, res, next) {
-  const newUser = req.body;
-  newUser.id = '' + nextId;
-  nextId++;
-  users.push(newUser);
-  return res.send(newUser.id);
-});
-
-router.delete('/:userId', function(req, res, next) {
-  const userId = req.params.userId;
-  const index = users.findIndex(user => user.id == userId);
-  if (index == -1) {
-    res.status(404);
-    res.send("Menu does not exist.");
+router.get('/:itemId', async (req, res, next) => {
+  try {
+    const itemId = req.params.itemId;
+    const item = await Menu.findById(itemId);
+    res.json(item);
+  } catch (error) {
+    res.status(500).json({ message: error });
   }
-  users.splice(index, 1);
-  return res.send(userId);
+});
+
+router.post('/', async (req, res, next) => {
+  try {
+    const newItem = new Menu(req.body);
+    await newItem.save();
+    res.send(newItem.id);
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ message: error });
+  }
+});
+
+router.delete('/:itemId', async (req, res, next) => {
+  try {
+    const itemId = req.params.itemId;
+    const item = await Menu.findByIdAndDelete(itemId);
+    res.json(item);
+  } catch (error) {
+    res.status(500).json({ message: error });
+  }
 });
 
 module.exports = router;
