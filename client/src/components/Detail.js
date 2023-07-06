@@ -11,6 +11,7 @@ export default function Detail() {
         return (
             <div className='detail'>
               <h3>{item.name}</h3>
+              <h3>Difficulty: $ {item.difficulty}</h3>
               <h3>Price: $ {item.price}</h3>
               <h3>Description: {item.description}</h3>
             </div>

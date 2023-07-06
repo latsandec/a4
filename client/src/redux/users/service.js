@@ -6,13 +6,16 @@ const addUser = async (user) => {
       },
       body: JSON.stringify(user)
     });
+
+    response.json().then({
+      
+    })
   
     const data = await response.json();
     if (!response.ok) {
       const errorMsg = data?.message;
       throw new Error(errorMsg);
     }
-    
     return await getUsers();
   };
   
