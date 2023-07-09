@@ -9,7 +9,7 @@ export default function CardContainer() {
 
   useEffect(() => {
     dispatch(getUsersAsync());
-  }, []);
+  }, [items]);
 
   return (
     <div className='card-container'>
