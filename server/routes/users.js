@@ -46,7 +46,6 @@ router.post('/', async (req, res, next) => {
     await newItem.save();
     res.send(newItem.id);
   } catch (error) {
-    console.log(error);
     res.status(500).json({ message: error });
   }
 });
