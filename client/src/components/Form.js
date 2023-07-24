@@ -11,7 +11,7 @@ export default function Form() {
     const priceRef = React.useRef();
     const urlRef = React.useRef();
 
-    const dispatch = useDispatch()
+    const dispatch = useDispatch();
 
   return (
     <div className='form'>

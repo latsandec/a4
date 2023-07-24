@@ -50,6 +50,18 @@ router.post('/', async (req, res, next) => {
   }
 });
 
+router.post('/:itemId', async (req, res, next) => {
+  try {
+    const itemId = req.params.itemId;
+    const item = await Menu.findById(itemId);
+    item.set(req.body);
+    await item.save();
+    res.send(itemId);
+  } catch (error) {
+    res.status(500).json({ message: error });
+  }
+});
+
 router.delete('/:itemId', async (req, res, next) => {
   try {
     const itemId = req.params.itemId;

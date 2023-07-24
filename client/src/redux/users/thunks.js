@@ -23,6 +23,13 @@ export const addUserAsync = createAsyncThunk(
   }
 );
 
+export const editUserAsync = createAsyncThunk(
+  actionTypes.EDIT_USER,
+  async (user) => {
+    return await UserService.editUser(user);
+  }
+);
+
 export const deleteUserAsync = createAsyncThunk(
   actionTypes.DELETE_USER,
   async (userId) => {

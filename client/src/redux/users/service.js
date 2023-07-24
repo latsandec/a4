@@ -13,6 +13,22 @@ const addUser = async (user) => {
     }
     return await getUsers();
   };
+
+  const editUser = async (user) => {
+    const response = await fetch('http://localhost:3001/users/' + user.id, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(user)
+    });
+    const data = await response;
+    if (!response.ok) {
+      const errorMsg = data?.message;
+      throw new Error(errorMsg);
+    }
+    return await getUser(user.id);
+  };
   
   const getUsers = async () => {
     const response = await fetch('http://localhost:3001/users', {
@@ -52,5 +68,6 @@ const addUser = async (user) => {
     addUser,
     getUsers,
     getUser,
+    editUser,
     deleteUser
   };
